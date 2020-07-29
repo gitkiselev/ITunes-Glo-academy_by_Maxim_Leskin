@@ -5,7 +5,7 @@ export const radioPlayerInit = () => {
     const radioItem = document.querySelectorAll('.radio-item');
     const radioHeaderBig = document.querySelector('.radio-header__big');
     const radioStop = document.querySelector('.radio-stop');
-    let radioVolume = document.querySelector('.radio-volume');
+    let radioVolum = document.querySelector('.radio-volume');
     const radioIconValueOff = document.querySelector('.radio-icon-value-Off');
 
     const audio = new Audio();
@@ -53,10 +53,10 @@ export const radioPlayerInit = () => {
         changeIconPlay();
     });
 
-    radioVolume.value = 50;
+    radioVolum.value = 50;
 
-    radioVolume.addEventListener('input', () => {
-            audio.volume = radioVolume.value / 100
+    radioVolum.addEventListener('input', () => {
+            audio.volume = radioVolum.value / 100
         }
     )
 
@@ -64,12 +64,12 @@ export const radioPlayerInit = () => {
 
     const changeRadioVolume = (value) => {
         audio.volume = value / 100
-        radioVolume.value = value
+        radioVolum.value = value
     }
 
     radioIconValueOff.addEventListener('click', () => {
         if (audio.volume != 0) {
-            radioVolume = radioVolume.value
+            radioVolumeValue = radioVolum.value
             changeRadioVolume(0)
             radioIconValueOff.classList.add('fa-volume-off')
             radioIconValueOff.classList.remove('fa-volume-down')

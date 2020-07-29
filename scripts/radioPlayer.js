@@ -5,7 +5,8 @@ export const radioPlayerInit = () => {
     const radioItem = document.querySelectorAll('.radio-item');
     const radioHeaderBig = document.querySelector('.radio-header__big');
     const radioStop = document.querySelector('.radio-stop');
-    const radioVolume = document.querySelector('.radio-volume');
+    let radioVolume = document.querySelector('.radio-volume');
+    const radioIconValueOff = document.querySelector('.radio-icon-value-Off');
 
     const audio = new Audio();
     audio.type = 'audio/aac';
@@ -52,10 +53,33 @@ export const radioPlayerInit = () => {
         changeIconPlay();
     });
 
+    radioVolume.value = 50;
+
     radioVolume.addEventListener('input', () => {
-        radioPlayer.volume = radioVolume.value / 100;
-        console.log('ff')
-    });
-    radioPlayer.volume = 0.5;
-    radioVolume.value = radioPlayer.volume * 100;
+            audio.volume = radioVolume.value / 100
+        }
+    )
+
+    let radioVolumeValue;
+
+    const changeRadioVolume = (value) => {
+        audio.volume = value / 100
+        radioVolume.value = value
+    }
+
+    radioIconValueOff.addEventListener('click', () => {
+        if (audio.volume != 0) {
+            radioVolume = radioVolume.value
+            changeRadioVolume(0)
+            radioIconValueOff.classList.add('fa-volume-off')
+            radioIconValueOff.classList.remove('fa-volume-down')
+
+        } else {
+
+            changeRadioVolume(radioVolumeValue)
+            radioIconValueOff.classList.remove('fa-volume-off')
+            radioIconValueOff.classList.add('fa-volume-down')
+        }
+    }
+    )
 };

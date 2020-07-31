@@ -28,6 +28,10 @@ export const musicPlayerInit = () => {
         } else {
             audioPlayer.play();
         }
+
+        audioPlayer.addEventListener('canplay', () => {
+            updateTime();
+        })
     }
 
     const prevTrack = () => {
@@ -80,7 +84,8 @@ export const musicPlayerInit = () => {
         audioPlayer.play();
     });
 
-    audioPlayer.addEventListener('timeupdate', () => {
+    
+    const updateTime = () => {
         const duration = audioPlayer.duration;
         const currentTime = audioPlayer.currentTime;
         const progress = (currentTime / duration) * 100;
@@ -94,12 +99,23 @@ export const musicPlayerInit = () => {
 
         audioTimePassed.textContent = `${addZero(minutesPassed)}:${addZero(secondsPassed)}`
         audioTimeTotal.textContent = `${addZero(minutesTotal)}:${addZero(secondsTotal)}`
-    });
-
+    };
+    audioPlayer.addEventListener('timeupdate', updateTime);
+    updateTime();
+        
     audioProgress.addEventListener('click', e => {
         const x = e.offsetX;
         const allWidth = audioProgress.clientWidth;
         const progress = (x / allWidth) * audioPlayer.duration;
         audioPlayer.currentTime = progress;
-    })
+    });
+
+    musicPlayerInit.stop = () => {
+        if (!audioPlayer.paused) {
+            audioPlayer.pause();
+            audio.classList.remove('play');
+            audioButtonPlay.classList.remove('fa-pause');
+            audioButtonPlay.classList.add('fa-play');
+        }
+    }
 };
